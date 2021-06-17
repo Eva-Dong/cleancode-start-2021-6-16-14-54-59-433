@@ -1,6 +1,13 @@
 package com.tw.academy.basic.$7_long_method;
 
 public class OrderReceipt {
+    public static final double ONE_PERCENT = .10;
+    public static final String HEADER = "======Printing Orders======\n";
+    public static final String SALES_TAX = "Sales Tax";
+    public static final String TOTAL_AMOUNT = "Total Amount";
+    public static final char TAB = '\t';
+    public static final char LINE_BREAK = '\n';
+    public static final double INITIAL_AMOUNT = 0d;
     private Order order;
 
     public OrderReceipt(Order order) {
@@ -12,11 +19,11 @@ public class OrderReceipt {
         printHeaders(receiptInfo);
         printCustomerNameAndAddress(receiptInfo);
 
-        double totalSalesTax = 0d;
-        double total = 0d;
+        double totalSalesTax = INITIAL_AMOUNT;
+        double total = INITIAL_AMOUNT;
         for (LineItem lineItem : order.getLineItems()) {
             printItems(receiptInfo, lineItem);
-            double salesTax = lineItem.totalAmount() * .10;
+            double salesTax = lineItem.totalAmount() * ONE_PERCENT;
             totalSalesTax += salesTax;
             total += lineItem.totalAmount() + salesTax;
         }
@@ -28,21 +35,21 @@ public class OrderReceipt {
 
     private void printItems(StringBuilder receiptInfo, LineItem lineItem) {
         receiptInfo.append(lineItem.getDescription());
-        receiptInfo.append('\t');
+        receiptInfo.append(TAB);
         receiptInfo.append(lineItem.getPrice());
-        receiptInfo.append('\t');
+        receiptInfo.append(TAB);
         receiptInfo.append(lineItem.getQuantity());
-        receiptInfo.append('\t');
+        receiptInfo.append(TAB);
         receiptInfo.append(lineItem.totalAmount());
-        receiptInfo.append('\n');
+        receiptInfo.append(LINE_BREAK);
     }
 
-    private void printTotalAmount(StringBuilder receiptInfo, double tot) {
-        receiptInfo.append("Total Amount").append('\t').append(tot);
+    private void printTotalAmount(StringBuilder receiptInfo, double total) {
+        receiptInfo.append(TOTAL_AMOUNT).append(TAB).append(total);
     }
 
-    private void printSaleTax(StringBuilder receiptInfo, double totSalesTx) {
-        receiptInfo.append("Sales Tax").append('\t').append(totSalesTx);
+    private void printSaleTax(StringBuilder receiptInfo, double totalSalesTax) {
+        receiptInfo.append(SALES_TAX).append(TAB).append(totalSalesTax);
     }
 
     private void printCustomerNameAndAddress(StringBuilder receiptInfo) {
@@ -51,6 +58,6 @@ public class OrderReceipt {
     }
 
     private void printHeaders(StringBuilder receiptInfo) {
-        receiptInfo.append("======Printing Orders======\n");
+        receiptInfo.append(HEADER);
     }
 }
