@@ -14,7 +14,7 @@ public class OrderReceipt {
         this.order = order;
     }
 
-    public String printReceipt() {
+    public String getReceiptInfo() {
         StringBuilder receiptInfo = new StringBuilder();
         printHeaders(receiptInfo);
         printCustomerNameAndAddress(receiptInfo);
